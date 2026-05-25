@@ -8,7 +8,7 @@ from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 
 # --- USTAWIENIA STRONY I WYGLĄD (CSS) ---
-st.set_page_config(page_title="GlowAI", page_icon="💋", layout="wide")
+st.set_page_config(page_title="GlowAI x Gossip Girl", page_icon="💋", layout="wide")
 
 css_style = (
     "<style>"
@@ -74,4 +74,120 @@ def uruchom_agentow(opis_problemu):
     
     url = "https://api.groq.com/openai/v1/chat/completions"
     
-    # KROK 1: Wymuszamy
+    # KROK 1: Wymuszamy na modelu podanie kluczowego składnika na podstawie opisu użytkownika.
+    step1_messages = [
+        {"role": "system", "content": "Jesteś Diagnostą skóry. Na podstawie opisu wskaż *jeden* główny składnik aktywny (po angielsku), którego potrzebuje ta skóra. Odpowiedz WYŁĄCZNIE nazwą składnika (np. Ceramides, Hyaluronic Acid, Salicylic Acid, Glycerin)."},
+        {"role": "user", "content": opis_problemu}
+    ]
+    
+    data1 = {"model": "llama-3.1-8b-instant", "messages": step1_messages, "temperature": 0.1}
+    skladnik = "Hyaluronic Acid" # Domyślny fallback
+    try:
+        req = urllib.request.Request(url, data=json.dumps(data1).encode('utf-8'))
+        req.add_header('Content-Type', 'application/json')
+        req.add_header('Authorization', f'Bearer {GROQ_API_KEY}')
+        with urllib.request.urlopen(req) as response:
+            res = json.loads(response.read().decode('utf-8'))
+            skladnik = res['choices'][0]['message']['content'].strip()
+    except Exception as e:
+        print(f"Krok 1 error: {e}")
+        pass
+    
+    # KROK 2: Użycie narzędzia narzędzia (Technolog)
+    wynik_bazy = search_cosmetics_tool(skladnik)
+    
+    # KROK 3: Ostateczna synteza i ocena (Redaktor + Strateg) w stylu Gossip Girl
+    final_prompt = (
+        f"Użytkownik ma problem: {opis_problemu}. "
+        f"Jako zespół ekspertów zalecasz główny składnik: {skladnik}. "
+        f"Oto co znalazł Twój Technolog w bazie (Marka, Nazwa, Cena): {wynik_bazy}. "
+        f"Teraz wciel się w rolę głównego redaktora (w stylu luksusowej 'Gossip Girl', używając 💋 i ✨). "
+        f"Zdiagnozuj problem, wspomnij o opłacalności produktów z bazy i napisz zwięzłą, ciepłą poradę pielęgnacyjną."
+    )
+    
+    final_messages = [{"role": "user", "content": final_prompt}]
+    data2 = {"model": "llama-3.1-8b-instant", "messages": final_messages, "temperature": 0.4}
+    try:
+        req = urllib.request.Request(url, data=json.dumps(data2).encode('utf-8'))
+        req.add_header('Content-Type', 'application/json')
+        req.add_header('Authorization', f'Bearer {GROQ_API_KEY}')
+        with urllib.request.urlopen(req) as response:
+            res = json.loads(response.read().decode('utf-8'))
+            return res['choices'][0]['message']['content']
+    except Exception as e:
+         return (
+            "💋 Ojej, Moi agenci chyba poszli na kawkę, bo serwery Groqa rzucają błędem uwierzytelniania! "
+            "Twój klucz API najprawdopodobniej został ograniczony przez systemy zabezpieczające platformy. Sprawdź go, kochana! ✨"
+        )
+
+
+# --- INTERFEJS WIZUALNY ---
+col_left, col_center, col_right = st.columns([1, 2.5, 1])
+
+def wyswietl_zdjecie_bezpiecznie(nazwa_pliku, fallback_url):
+    if os.path.exists(nazwa_pliku):
+        st.image(nazwa_pliku, use_container_width=True)
+    else:
+        st.image(fallback_url, use_container_width=True)
+
+with col_left:
+    st.write("")
+    wyswietl_zdjecie_bezpiecznie("1fa08f5d77417f45981c55e8b887f909.jpg", "https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?q=80&w=400")
+    wyswietl_zdjecie_bezpiecznie("102e80d2a00f1417283bfd743d021a76.jpg", "https://images.unsplash.com/photo-1556229174-5e42a09e45af?q=80&w=400")
+    wyswietl_zdjecie_bezpiecznie("9438d31b27d424e2feb4e744c7578aa3.jpg", "https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?q=80&w=400")
+
+with col_right:
+    st.write("")
+    wyswietl_zdjecie_bezpiecznie("700129929a2803b16ab124197ec8ba69.jpg", "https://images.unsplash.com/photo-1608248597481-496100c8c836?q=80&w=400")
+    wyswietl_zdjecie_bezpiecznie("daa4eaf344eebaaa5d8e72625ca7f976.jpg", "https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?q=80&w=400")
+    wyswietl_zdjecie_bezpiecznie("edf73f24d9d6a298f7d0626c20569a7c.jpg", "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?q=80&w=400")
+
+with col_center:
+    st.markdown('<div class="brand-logo">GlowAI</div>', unsafe_allow_html=True)
+    st.markdown('<div class="brand-tagline">XOXO, Your Ultimate Skincare Confidant</div>', unsafe_allow_html=True)
+    
+    st.markdown('<div class="profile-card">', unsafe_allow_html=True)
+    st.markdown("<b style='color: #635252;'>Setup Twój Profil 💋</b>", unsafe_allow_html=True)
+    c_name, c_email = st.columns(2)
+    with c_name:
+        user_name = st.text_input("Jak masz na imię?", value="Bff")
+    with c_email:
+        user_email = st.text_input("E-mail (do wysłania raportu z czatu):", placeholder="girl@messenger.com")
+    st.markdown('</div>', unsafe_allow_html=True)
+
+    if "messages" not in st.session_state:
+        st.session_state.messages = [
+            {"role": "assistant", "content": f"Cześć {user_name}! Opowiedz mi, z czym dzisiaj walczy Twoja skóra? Zdradź mi wszystko! 💋"}
+        ]
+
+    for message in st.session_state.messages:
+        with st.chat_message(message["role"]):
+            st.markdown(message["content"])
+
+    if prompt := st.chat_input("Napisz sekret o swojej skórze..."):
+        with st.chat_message("user"):
+            st.markdown(prompt)
+        st.session_state.messages.append({"role": "user", "content": prompt})
+        
+        with st.chat_message("assistant"):
+            with st.spinner("✨ Moi agenci z LLM naradzają się nad Twoim przypadkiem..."):
+                odpowiedz = uruchom_agentow(prompt)
+                st.markdown(odpowiedz)
+                st.session_state.messages.append({"role": "assistant", "content": odpowiedz})
+
+    if len(st.session_state.messages) > 1:
+        st.markdown("<br>", unsafe_allow_html=True)
+        if st.button("Wyślij ten sekret i całą rozmowę na mojego maila 💌"):
+            if not user_email or "@" not in user_email:
+                st.error("💖 Podaj poprawny e-mail u góry!")
+            else:
+                full_transcript = ""
+                for msg in st.session_state.messages:
+                    autor = user_name if msg["role"] == "user" else "GlowAI"
+                    full_transcript += f"[{autor}]: {msg['content']}\n\n"
+                
+                with st.spinner("Wysyłam raport..."):
+                    status = send_email(user_email, full_transcript)
+                    st.success(status)
+
+st.markdown('<div class="brand-footer">New philosophy of selfcare: healthy skin first</div>', unsafe_allow_html=True)
