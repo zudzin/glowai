@@ -146,6 +146,13 @@ div.stButton > button:first-child:hover {
 """
 st.markdown(css_style, unsafe_allow_html=True)
 
+# --- FUNKCJE POMOCNICZE WIZUALNE ---
+def safe_image(img_name, fallback_url):
+    if os.path.exists(img_name):
+        st.image(img_name, use_container_width=True)
+    else:
+        st.image(fallback_url, use_container_width=True)
+
 # --- UKŁAD KOLUMN ---
 col_left, col_center, col_right = st.columns([1, 2.2, 1], gap="large")
 
@@ -173,13 +180,13 @@ with col_center:
     # Ultra-minimalistyczny setup profilu (ukryte etykiety)
     c1, c2 = st.columns(2)
     with c1:
-        user_name = st.text_input("Name", placeholder="YOUR NAME", label_visibility="collapsed")
+        user_name = st.text_input("Name", placeholder="TWOJE IMIĘ", label_visibility="collapsed")
     with c2:
-        user_email = st.text_input("Email", placeholder="YOUR EMAIL", label_visibility="collapsed")
+        user_email = st.text_input("Email", placeholder="TWÓJ EMAIL", label_visibility="collapsed")
     
     st.markdown("<div style='margin-bottom: 40px;'></div>", unsafe_allow_html=True)
 
-# Inicjalizacja czatu
+    # Inicjalizacja czatu
     if "messages" not in st.session_state:
         st.session_state.messages = [
             {"role": "assistant", "content": "Cześć piękna! 🤍 Gotowa zromantyzować swoją rutynę pielęgnacyjną? Zdradź mi, czego dzisiaj pragnie Twoja skóra."}
