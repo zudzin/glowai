@@ -8,18 +8,18 @@ st.set_page_config(page_title="GlowAI | Skincare Secrets", page_icon="🎀", lay
 # --- EDGY & CLEAN GIRL UI (ZAAWANSOWANY CSS) ---
 css_style = """
 <style>
-/* Luksusowy font - wszędzie tylko Montserrat */
+/* Luksusowy font - wyłącznie Montserrat */
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
 
-/* Tło strony - ultra jasny, pudrowy róż */
+/* Tło strony - najjaśniejszy odcień palety (#F5ECEE) */
 .stApp {
-    background-color: #fcf3f5;
+    background-color: #F5ECEE;
 }
 
-/* Wymuszenie fontu Montserrat i koloru tekstu - ciemny, brudny róż */
+/* Wymuszenie fontu Montserrat i najciemniejszego koloru tekstu dla czytelności (#38242C) */
 html, body, [class*='css'], p, div {
     font-family: 'Montserrat', sans-serif !important;
-    color: #5c3d43 !important;
+    color: #38242C !important;
 }
 
 /* Ukrycie domyślnego, pustego marginesu na górze Streamlita */
@@ -27,14 +27,14 @@ div[data-testid="stAppViewBlockContainer"] {
     padding-top: 2rem !important;
 }
 
-/* GŁÓWNE LOGO */
+/* GŁÓWNE LOGO (#A24D72) */
 .edgy-logo {
     font-family: 'Montserrat', sans-serif;
     font-size: 60px;
     text-align: center;
     font-weight: 700;
     letter-spacing: 10px;
-    color: #a36b76;
+    color: #A24D72;
     text-transform: uppercase;
     margin-top: 0px;
     margin-bottom: -10px;
@@ -46,37 +46,37 @@ div[data-testid="stAppViewBlockContainer"] {
     font-size: 11px;
     letter-spacing: 4px;
     text-transform: uppercase;
-    color: #b58c94;
+    color: #C27F97;
     margin-bottom: 50px;
-    font-weight: 500;
+    font-weight: 600;
 }
 
-/* ZDJĘCIA PO BOKACH - estetyczna poświata */
+/* ZDJĘCIA PO BOKACH - ramki w kolorze #D8AAB7 */
 [data-testid='stImage'] img {
     border-radius: 12px !important;
     object-fit: cover;
-    box-shadow: 0px 8px 25px rgba(163, 107, 118, 0.1) !important;
-    border: 1px solid #f2d8dd;
+    box-shadow: 0px 8px 25px rgba(107, 47, 74, 0.1) !important; /* Poświata w kolorze #6B2F4A */
+    border: 1px solid #D8AAB7;
     transition: all 0.5s ease;
 }
 [data-testid='stImage'] img:hover {
     transform: translateY(-4px);
-    box-shadow: 0px 15px 35px rgba(163, 107, 118, 0.2) !important;
+    box-shadow: 0px 15px 35px rgba(107, 47, 74, 0.2) !important;
 }
 
-/* POLA TEKSTOWE - czysty minimalizm w różu */
+/* POLA TEKSTOWE */
 div[data-baseweb="input"] > div {
-    background-color: #ffffff !important;
-    border: 1px solid #f2d8dd !important;
+    background-color: #FFFFFF !important;
+    border: 1px solid #D8AAB7 !important;
     border-radius: 8px !important;
     padding: 2px 5px !important;
 }
 div[data-baseweb="input"] > div:focus-within {
-    border: 1px solid #a36b76 !important;
+    border: 1px solid #A24D72 !important;
     box-shadow: none !important;
 }
 input::placeholder {
-    color: #b58c94 !important;
+    color: #C27F97 !important;
     letter-spacing: 1px;
     font-size: 12px;
     text-transform: uppercase;
@@ -85,34 +85,34 @@ input::placeholder {
 
 /* WYGLĄD DYMKÓW CZATU */
 [data-testid="stChatMessage"] {
-    background-color: #ffffff !important;
+    background-color: #FFFFFF !important;
     border-radius: 16px;
-    border: 1px solid #f2d8dd !important;
+    border: 1px solid #D8AAB7 !important;
     padding: 18px 22px !important;
-    box-shadow: 0px 4px 15px rgba(163, 107, 118, 0.05) !important;
+    box-shadow: 0px 4px 15px rgba(107, 47, 74, 0.05) !important;
     margin-bottom: 15px !important;
     font-size: 14px !important;
     line-height: 1.6 !important;
 }
-/* Dymek bota - delikatny, różowy blush */
+/* Dymek bota - piękny, brudny róż z palety (#D8AAB7) */
 [data-testid="stChatMessage"]:nth-child(even) {
-    background-color: #f7e1e6 !important;
-    border: 1px solid #f2d8dd !important;
+    background-color: #D8AAB7 !important;
+    border: 1px solid #C27F97 !important;
 }
 
 /* PASEK CZATU NA DOLE */
 div[data-testid="stChatInput"] {
-    background-color: #ffffff !important;
-    border: 1px solid #f2d8dd !important;
+    background-color: #FFFFFF !important;
+    border: 1px solid #D8AAB7 !important;
     border-radius: 30px !important;
     padding: 2px 10px !important;
-    box-shadow: 0px -5px 20px rgba(163, 107, 118, 0.08) !important;
+    box-shadow: 0px -5px 20px rgba(107, 47, 74, 0.08) !important;
 }
 
-/* PRZYCISK MAILOWY */
+/* PRZYCISK MAILOWY - intensywny róż (#A24D72) */
 div.stButton > button:first-child {
-    background-color: #a36b76 !important;
-    color: #ffffff !important;
+    background-color: #A24D72 !important;
+    color: #FFFFFF !important;
     border-radius: 8px !important;
     border: none !important;
     padding: 15px 24px !important;
@@ -125,8 +125,8 @@ div.stButton > button:first-child {
     transition: all 0.3s ease;
 }
 div.stButton > button:first-child:hover {
-    background-color: #8a5660 !important;
-    color: #ffffff !important;
+    background-color: #6B2F4A !important; /* Ciemniejszy róż na hover */
+    color: #F5ECEE !important;
     transform: translateY(-2px);
 }
 
@@ -136,21 +136,15 @@ div.stButton > button:first-child:hover {
     font-size: 10px;
     letter-spacing: 3px;
     text-transform: uppercase;
-    color: #b58c94;
+    color: #C27F97;
     margin-top: 80px;
     padding-bottom: 20px;
-    border-top: 1px solid #f2d8dd;
+    border-top: 1px solid #D8AAB7;
     padding-top: 30px;
 }
 </style>
 """
 st.markdown(css_style, unsafe_allow_html=True)
-# --- FUNKCJE POMOCNICZE WIZUALNE ---
-def safe_image(img_name, fallback_url):
-    if os.path.exists(img_name):
-        st.image(img_name, use_container_width=True)
-    else:
-        st.image(fallback_url, use_container_width=True)
 
 # --- UKŁAD KOLUMN ---
 col_left, col_center, col_right = st.columns([1, 2.2, 1], gap="large")
