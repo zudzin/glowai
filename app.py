@@ -28,32 +28,33 @@ css_style = (
     "</style>"
 )
 
-st.markdown(css_style, unsafe_allowed_html=True)
+# POPRAWIONE: unsafe_allow_html zamiast unsafe_allowed_html
+st.markdown(css_style, unsafe_allow_html=True)
 
 # --- WYSTAWKA FRONTENDU ---
-st.markdown('<div class="nav-bar">About us &nbsp; • &nbsp; Catalog &nbsp; • &nbsp; Skincare &nbsp; • &nbsp; AI Consultant</div>', unsafe_allowed_html=True)
-st.markdown('<div class="bg-huge-text">GLOW</div>', unsafe_allowed_html=True)
-st.markdown('<div class="brand-title">rhode x glowai</div>', unsafe_allowed_html=True)
-st.markdown('<div class="brand-subtitle">New philosophy of selfcare: healthy skin first</div>', unsafe_allowed_html=True)
+st.markdown('<div class="nav-bar">About us &nbsp; • &nbsp; Catalog &nbsp; • &nbsp; Skincare &nbsp; • &nbsp; AI Consultant</div>', unsafe_allow_html=True)
+st.markdown('<div class="bg-huge-text">GLOW</div>', unsafe_allow_html=True)
+st.markdown('<div class="brand-title">rhode x glowai</div>', unsafe_allow_html=True)
+st.markdown('<div class="brand-subtitle">New philosophy of selfcare: healthy skin first</div>', unsafe_allow_html=True)
 
 col_img1, col_img2, col_img3 = st.columns(3)
 with col_img1:
-    st.markdown('<img class="gallery-img" src="https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?q=80&w=500" width="100%">', unsafe_allowed_html=True)
+    st.markdown('<img class="gallery-img" src="https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?q=80&w=500" width="100%">', unsafe_allow_html=True)
 with col_img2:
-    st.markdown('<img class="gallery-img" src="https://images.unsplash.com/photo-1556229174-5e42a09e45af?q=80&w=500" width="100%">', unsafe_allowed_html=True)
+    st.markdown('<img class="gallery-img" src="https://images.unsplash.com/photo-1556229174-5e42a09e45af?q=80&w=500" width="100%">', unsafe_allow_html=True)
 with col_img3:
-    st.markdown('<img class="gallery-img" src="https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?q=80&w=500" width="100%">', unsafe_allowed_html=True)
+    st.markdown('<img class="gallery-img" src="https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?q=80&w=500" width="100%">', unsafe_allow_html=True)
 
-st.markdown("<br><br>", unsafe_allowed_html=True)
+st.markdown("<br><br>", unsafe_allow_html=True)
 
-st.markdown('<div class="skincare-card">', unsafe_allowed_html=True)
-st.markdown("<h2 style='font-family: serif; color: #635252; text-align:center;'>🌸 Spersonalizowany Konsultant AI</h2>", unsafe_allowed_html=True)
+st.markdown('<div class="skincare-card">', unsafe_allow_html=True)
+st.markdown("<h2 style='font-family: serif; color: #635252; text-align:center;'>🌸 Spersonalizowany Konsultant AI</h2>", unsafe_allow_html=True)
 
 user_input = st.text_area("Opisz swoją skórę (np. 'mam problem z egzemą i suchą skórą'):", placeholder="Napisz to w 100% naturalnie...")
 user_email = st.text_input("Twój e-mail, na który wyślemy oficjalny raport:", placeholder="your.email@gmail.com")
 
 generate_btn = st.button("ANALIZUJ PROFIL SKÓRY ✨")
-st.markdown('</div>', unsafe_allowed_html=True)
+st.markdown('</div>', unsafe_allow_html=True)
 
 # --- CONFIG ---
 GROQ_API_KEY = "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"
@@ -121,7 +122,7 @@ if generate_btn:
                     <div class="product-pill">
                         <b>🌿 Sage Pure Barrier Cream</b> — Łagodzenie podrażnień i głęboka regeneracja suchej skóry.
                     </div>
-                """, unsafe_allowed_html=True)
+                """, unsafe_allow_html=True)
                 
             except Exception as e:
                 st.error(f"Wystąpił problem. Szczegóły: {e}")
