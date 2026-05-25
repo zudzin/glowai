@@ -2,9 +2,10 @@ import streamlit as st
 import os
 import pandas as pd
 import smtplib
+import json
+import urllib.request
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
-from litellm import completion
 
 # --- USTAWIENIA STRONY ---
 st.set_page_config(page_title="glowai", page_icon="💖", layout="wide")
@@ -73,8 +74,8 @@ user_email = st.text_input("Twój e-mail, na który wyślemy oficjalny raport:",
 generate_btn = st.button("ANALIZUJ PROFIL SKÓRY ✨")
 st.markdown('</div>', unsafe_allowed_html=True)
 
-# --- BACKEND ---
-os.environ["GROQ_API_KEY"] = "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"
+# --- CONFIG ---
+GROQ_API_KEY = "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"
 GMAIL_USER = "n.zudzin@gmail.com"
 GMAIL_PASS = "syry wcts pymb yscg"
 
@@ -94,19 +95,28 @@ def send_email(receiver_email, content):
     except Exception as e:
         return f"Błąd poczty: {e}"
 
-def symuluj_agentow_ai(opis_skory):
-    # Zaawansowany prompt, który wymusza na LLM zasymulowanie ról wszystkich 5 agentów z Twojego projektu
+def symuluj_agentow_ai_native(opis_skory):
+    # Bezpośrednie, natywne połączenie API Groq bez zewnętrznych bibliotek
+    url = "https://api.groq.com/openai/v1/chat/completions"
     system_prompt = """Jesteś zaawansowanym systemem kosmetologicznym działającym jako zespół 5 agentów: Dermatolog, Technolog, Strateg, Redaktor i Spedytor.
-    Przeanalizuj opis skóry pacjenta. Postaw krótką diagnozę (Dermatolog), dobierz pasujący składnik aktywny i wyszukaj przykładowy produkt w bazie (Technolog), oceń opłacalność (Strateg) i sformatuj całość w przepiękny, przyjacielski, dziewczęcy, ale profesjonalny raport po polsku (Redaktor). Nie używaj żadnego kodu ani znaczników technicznych. Napisz tekst tak, jakby pisała go profesjonalna klinika kosmetologiczna."""
+    Przeanalizuj opis skóry pacjenta. Postaw krótką diagnozę (Dermatolog), dobierz pasujący składnik aktywny i wyszukaj przykładowy produkt w bazie (Technolog), oceń opłacalność (Strateg) i sformatuj całość w przepiękny, przyjacielski, dziewczęcy, ale profesjonalny raport po polsku (Redaktor). Nie używaj żadnego kodu ani znaczników technicznych."""
     
-    response = completion(
-        model="groq/llama3-8b-8192", 
-        messages=[
+    data = {
+        "model": "llama3-8b-8192",
+        "messages": [
             {"role": "system", "content": system_prompt},
             {"role": "user", "content": f"Opis skóry pacjenta: {opis_skory}"}
-        ]
-    )
-    return response.choices[0].message.content
+        ],
+        "temperature": 0.3
+    }
+    
+    req = urllib.request.Request(url, data=json.dumps(data).encode('utf-8'))
+    req.add_header('Content-Type', 'application/json')
+    req.add_header('Authorization', f'Bearer {GROQ_API_KEY}')
+    
+    with urllib.request.urlopen(req) as response:
+        res = json.loads(response.read().decode('utf-8'))
+        return res['choices'][0]['message']['content']
 
 if generate_btn:
     if not user_input or not user_email or "@" not in user_email:
@@ -114,8 +124,8 @@ if generate_btn:
     else:
         with st.spinner("✨ Nasz inteligentny system analizuje Twój profil skóry..."):
             try:
-                # Wywołanie bezpiecznego silnika AI
-                wynik = symuluj_agentow_ai(user_input)
+                # Wywołanie bezbłędnego, czystego silnika AI
+                wynik = symuluj_agentow_ai_native(user_input)
                 status_maila = send_email(user_email, wynik)
                 
                 st.balloons()
