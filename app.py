@@ -8,18 +8,18 @@ st.set_page_config(page_title="GlowAI | Skincare Secrets", page_icon="🎀", lay
 # --- EDGY & CLEAN GIRL UI (ZAAWANSOWANY CSS) ---
 css_style = """
 <style>
-/* Luksusowe fonty */
-@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Jost:wght@300;400;500&display=swap');
+/* Luksusowy font - wszędzie tylko Montserrat */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
 
-/* Tło strony - jasny, chłodny beż (#e3dfdc) */
+/* Tło strony - ultra jasny, pudrowy róż */
 .stApp {
-    background-color: #e3dfdc;
+    background-color: #fcf3f5;
 }
 
-/* Wymuszenie fontu i głównego koloru tekstu - ciemny taupe (#5e4d41) */
+/* Wymuszenie fontu Montserrat i koloru tekstu - ciemny, brudny róż */
 html, body, [class*='css'], p, div {
-    font-family: 'Jost', sans-serif !important;
-    color: #5e4d41 !important;
+    font-family: 'Montserrat', sans-serif !important;
+    color: #5c3d43 !important;
 }
 
 /* Ukrycie domyślnego, pustego marginesu na górze Streamlita */
@@ -27,14 +27,14 @@ div[data-testid="stAppViewBlockContainer"] {
     padding-top: 2rem !important;
 }
 
-/* GŁÓWNE LOGO (#615147) */
+/* GŁÓWNE LOGO */
 .edgy-logo {
-    font-family: 'Cinzel', serif;
-    font-size: 65px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 60px;
     text-align: center;
     font-weight: 700;
-    letter-spacing: 12px;
-    color: #615147;
+    letter-spacing: 10px;
+    color: #a36b76;
     text-transform: uppercase;
     margin-top: 0px;
     margin-bottom: -10px;
@@ -42,92 +42,92 @@ div[data-testid="stAppViewBlockContainer"] {
 
 .subtitle {
     text-align: center;
-    font-family: 'Jost', sans-serif;
+    font-family: 'Montserrat', sans-serif;
     font-size: 11px;
-    letter-spacing: 5px;
+    letter-spacing: 4px;
     text-transform: uppercase;
-    color: #988d84;
+    color: #b58c94;
     margin-bottom: 50px;
+    font-weight: 500;
 }
 
-/* ZDJĘCIA PO BOKACH - aesthetic filter */
+/* ZDJĘCIA PO BOKACH - estetyczna poświata */
 [data-testid='stImage'] img {
     border-radius: 12px !important;
     object-fit: cover;
-    box-shadow: 0px 8px 25px rgba(0, 0, 0, 0.04) !important;
-    border: 1px solid #dfd4cb;
+    box-shadow: 0px 8px 25px rgba(163, 107, 118, 0.1) !important;
+    border: 1px solid #f2d8dd;
     transition: all 0.5s ease;
-    filter: contrast(105%) brightness(102%) saturate(90%);
 }
 [data-testid='stImage'] img:hover {
     transform: translateY(-4px);
-    box-shadow: 0px 15px 35px rgba(0, 0, 0, 0.08) !important;
-    filter: contrast(110%) brightness(105%) saturate(100%);
+    box-shadow: 0px 15px 35px rgba(163, 107, 118, 0.2) !important;
 }
 
-/* POLA TEKSTOWE - czysty minimalizm */
+/* POLA TEKSTOWE - czysty minimalizm w różu */
 div[data-baseweb="input"] > div {
     background-color: #ffffff !important;
-    border: 1px solid #dfd4cb !important;
-    border-radius: 6px !important;
+    border: 1px solid #f2d8dd !important;
+    border-radius: 8px !important;
     padding: 2px 5px !important;
 }
 div[data-baseweb="input"] > div:focus-within {
-    border: 1px solid #988d84 !important;
+    border: 1px solid #a36b76 !important;
     box-shadow: none !important;
 }
 input::placeholder {
-    color: #988d84 !important;
+    color: #b58c94 !important;
     letter-spacing: 1px;
-    font-size: 13px;
+    font-size: 12px;
     text-transform: uppercase;
+    font-weight: 500;
 }
 
 /* WYGLĄD DYMKÓW CZATU */
 [data-testid="stChatMessage"] {
     background-color: #ffffff !important;
     border-radius: 16px;
-    border: 1px solid #dfd4cb !important;
+    border: 1px solid #f2d8dd !important;
     padding: 18px 22px !important;
-    box-shadow: 0px 4px 15px rgba(0,0,0,0.01) !important;
+    box-shadow: 0px 4px 15px rgba(163, 107, 118, 0.05) !important;
     margin-bottom: 15px !important;
-    font-size: 15px !important;
+    font-size: 14px !important;
     line-height: 1.6 !important;
 }
-/* Dymek bota - ciemniejszy beż z palety (#dfd4cb) */
+/* Dymek bota - delikatny, różowy blush */
 [data-testid="stChatMessage"]:nth-child(even) {
-    background-color: #dfd4cb !important;
-    border: 1px solid #dfd4cb !important;
+    background-color: #f7e1e6 !important;
+    border: 1px solid #f2d8dd !important;
 }
 
 /* PASEK CZATU NA DOLE */
 div[data-testid="stChatInput"] {
     background-color: #ffffff !important;
-    border: 1px solid #dfd4cb !important;
+    border: 1px solid #f2d8dd !important;
     border-radius: 30px !important;
     padding: 2px 10px !important;
-    box-shadow: 0px -5px 20px rgba(0, 0, 0, 0.02) !important;
+    box-shadow: 0px -5px 20px rgba(163, 107, 118, 0.08) !important;
 }
 
-/* PRZYCISK MAILOWY - Haute Couture */
+/* PRZYCISK MAILOWY */
 div.stButton > button:first-child {
-    background-color: #615147 !important;
+    background-color: #a36b76 !important;
     color: #ffffff !important;
-    border-radius: 6px !important;
+    border-radius: 8px !important;
     border: none !important;
     padding: 15px 24px !important;
-    font-family: 'Jost', sans-serif !important;
-    font-size: 11px !important;
-    font-weight: 500 !important;
-    letter-spacing: 3px !important;
+    font-size: 12px !important;
+    font-weight: 600 !important;
+    letter-spacing: 2px !important;
     text-transform: uppercase !important;
     width: 100%;
     margin-top: 10px;
     transition: all 0.3s ease;
 }
 div.stButton > button:first-child:hover {
-    background-color: #988d84 !important;
+    background-color: #8a5660 !important;
     color: #ffffff !important;
+    transform: translateY(-2px);
 }
 
 /* STOPKA */
@@ -136,16 +136,15 @@ div.stButton > button:first-child:hover {
     font-size: 10px;
     letter-spacing: 3px;
     text-transform: uppercase;
-    color: #988d84;
+    color: #b58c94;
     margin-top: 80px;
     padding-bottom: 20px;
-    border-top: 1px solid #dfd4cb;
+    border-top: 1px solid #f2d8dd;
     padding-top: 30px;
 }
 </style>
 """
 st.markdown(css_style, unsafe_allow_html=True)
-
 # --- FUNKCJE POMOCNICZE WIZUALNE ---
 def safe_image(img_name, fallback_url):
     if os.path.exists(img_name):
