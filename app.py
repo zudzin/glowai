@@ -10,46 +10,27 @@ from email.mime.multipart import MIMEMultipart
 # --- USTAWIENIA STRONY ---
 st.set_page_config(page_title="glowai", page_icon="💖", layout="wide")
 
-# --- EDGY PINK & CREAM HIGH-END AESTHETIC ---
-st.markdown("""
-    <style>
-    @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght=600&family=Montserrat:wght=300;400;600&display=swap');
-    
-    .stApp { background-color: #fff9f6; }
-    html, body, [class*="css"] { font-family: 'Montserrat', sans-serif; color: #2b2b2b; }
-    
-    .bg-huge-text {
-        font-family: 'Cinzel', serif; font-size: 14vw; color: rgba(224, 164, 164, 0.15);
-        font-weight: 700; text-align: center; position: absolute; width: 100%; top: -40px; z-index: 0; pointer-events: none; letter-spacing: -5px;
-    }
-    
-    .nav-bar {
-        text-align: center; padding: 15px; font-size: 13px; letter-spacing: 2px; text-transform: uppercase; color: #a38585;
-        border-bottom: 1px solid rgba(163, 133, 133, 0.15); margin-bottom: 30px;
-    }
-    
-    .brand-title { font-family: 'Cinzel', serif; color: #c98a8a; font-size: 70px; text-align: center; font-weight: 600; letter-spacing: 4px; margin-top: 20px; }
-    .brand-subtitle { text-align: center; color: #635252; font-size: 16px; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 50px; }
-    
-    .skincare-card {
-        background-color: #ffffff; padding: 40px; border-radius: 40px 0px 40px 0px; border: 1px solid #f7dede;
-        box-shadow: 15px 15px 0px #f0cfcf; margin-bottom: 40px; position: relative; z-index: 1;
-    }
-    
-    .gallery-img { border-radius: 20px; object-fit: cover; box-shadow: 0px 10px 25px rgba(201, 138, 138, 0.15); transition: transform 0.3s ease; }
-    .gallery-img:hover { transform: scale(1.02); }
-    
-    .product-pill { background-color: #f7dede; color: #635252; padding: 20px; border-radius: 20px; margin-bottom: 15px; border: 1px solid #ebc5c5; }
-    
-    div.stButton > button:first-child {
-        background-color: #c98a8a !important; color: white !important; border-radius: 30px !important; border: none !important;
-        padding: 15px 40px !important; font-size: 16px !important; font-weight: 600 !important; letter-spacing: 2px !important; width: 100%;
-        box-shadow: 0px 8px 20px rgba(201, 138, 138, 0.3) !important;
-    }
-    div.stButton > button:first-child:hover { background-color: #b87676 !important; transform: translateY(-2px); }
-    </style>
-""", unsafe_allowed_html=True)
+# --- CZYSZCZENIE I BEZPIECZNY ZAPIS STYLU CSS ---
+css_style = (
+    "<style>"
+    ".stApp { background-color: #fff9f6; }"
+    "html, body, [class*='css'] { font-family: 'Montserrat', sans-serif; color: #2b2b2b; }"
+    ".bg-huge-text { font-family: 'Cinzel', serif; font-size: 150px; color: rgba(224, 164, 164, 0.15); font-weight: 700; text-align: center; position: absolute; width: 100%; top: -40px; z-index: 0; pointer-events: none; letter-spacing: -5px; }"
+    ".nav-bar { text-align: center; padding: 15px; font-size: 13px; letter-spacing: 2px; text-transform: uppercase; color: #a38585; border-bottom: 1px solid rgba(163, 133, 133, 0.15); margin-bottom: 30px; }"
+    ".brand-title { font-family: 'Cinzel', serif; color: #c98a8a; font-size: 70px; text-align: center; font-weight: 600; letter-spacing: 4px; margin-top: 20px; }"
+    ".brand-subtitle { text-align: center; color: #635252; font-size: 16px; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 50px; }"
+    ".skincare-card { background-color: #ffffff; padding: 40px; border-radius: 40px 0px 40px 0px; border: 1px solid #f7dede; box-shadow: 15px 15px 0px #f0cfcf; margin-bottom: 40px; position: relative; z-index: 1; }"
+    ".gallery-img { border-radius: 20px; object-fit: cover; box-shadow: 0px 10px 25px rgba(201, 138, 138, 0.15); transition: transform 0.3s ease; }"
+    ".gallery-img:hover { transform: scale(1.02); }"
+    ".product-pill { background-color: #f7dede; color: #635252; padding: 20px; border-radius: 20px; margin-bottom: 15px; border: 1px solid #ebc5c5; }"
+    "div.stButton > button:first-child { background-color: #c98a8a !important; color: white !important; border-radius: 30px !important; border: none !important; padding: 15px 40px !important; font-size: 16px !important; font-weight: 600 !important; letter-spacing: 2px !important; width: 100%; box-shadow: 0px 8px 20px rgba(201, 138, 138, 0.3) !important; }"
+    "div.stButton > button:first-child:hover { background-color: #b87676 !important; transform: translateY(-2px); }"
+    "</style>"
+)
 
+st.markdown(css_style, unsafe_allowed_html=True)
+
+# --- WYSTAWKA FRONTENDU ---
 st.markdown('<div class="nav-bar">About us &nbsp; • &nbsp; Catalog &nbsp; • &nbsp; Skincare &nbsp; • &nbsp; AI Consultant</div>', unsafe_allowed_html=True)
 st.markdown('<div class="bg-huge-text">GLOW</div>', unsafe_allowed_html=True)
 st.markdown('<div class="brand-title">rhode x glowai</div>', unsafe_allowed_html=True)
@@ -66,7 +47,7 @@ with col_img3:
 st.markdown("<br><br>", unsafe_allowed_html=True)
 
 st.markdown('<div class="skincare-card">', unsafe_allowed_html=True)
-st.markdown("<h2 style='font-family: Cinzel, serif; color: #635252; text-align:center;'>🌸 Spersonalizowany Konsultant AI</h2>", unsafe_allowed_html=True)
+st.markdown("<h2 style='font-family: serif; color: #635252; text-align:center;'>🌸 Spersonalizowany Konsultant AI</h2>", unsafe_allowed_html=True)
 
 user_input = st.text_area("Opisz swoją skórę (np. 'mam problem z egzemą i suchą skórą'):", placeholder="Napisz to w 100% naturalnie...")
 user_email = st.text_input("Twój e-mail, na który wyślemy oficjalny raport:", placeholder="your.email@gmail.com")
@@ -96,7 +77,6 @@ def send_email(receiver_email, content):
         return f"Błąd poczty: {e}"
 
 def symuluj_agentow_ai_native(opis_skory):
-    # Bezpośrednie, natywne połączenie API Groq bez zewnętrznych bibliotek
     url = "https://api.groq.com/openai/v1/chat/completions"
     system_prompt = """Jesteś zaawansowanym systemem kosmetologicznym działającym jako zespół 5 agentów: Dermatolog, Technolog, Strateg, Redaktor i Spedytor.
     Przeanalizuj opis skóry pacjenta. Postaw krótką diagnozę (Dermatolog), dobierz pasujący składnik aktywny i wyszukaj przykładowy produkt w bazie (Technolog), oceń opłacalność (Strateg) i sformatuj całość w przepiękny, przyjacielski, dziewczęcy, ale profesjonalny raport po polsku (Redaktor). Nie używaj żadnego kodu ani znaczników technicznych."""
@@ -124,7 +104,6 @@ if generate_btn:
     else:
         with st.spinner("✨ Nasz inteligentny system analizuje Twój profil skóry..."):
             try:
-                # Wywołanie bezbłędnego, czystego silnika AI
                 wynik = symuluj_agentow_ai_native(user_input)
                 status_maila = send_email(user_email, wynik)
                 
