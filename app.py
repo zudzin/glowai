@@ -12,7 +12,7 @@ css_style = """
 
 /* Tło całej aplikacji - jasny róż #F5ECEE */
 .stApp, .main, [data-testid="stAppViewContainer"] {
-    background-color: #F5ECEE !important;
+    background-color: #D895B1 !important;
 }
 
 /* Wymuszenie fontu Montserrat dla całego tekstu oraz głównego koloru #38242C */
@@ -28,7 +28,7 @@ div[data-testid="stAppViewBlockContainer"] {
 
 /* OGROMNE LOGO GLOW.AI (#6B2F4A) */
 .huge-logo {
-    font-size: 85px !important;
+    font-size: 100px !important;
     font-weight: 800 !important;
     text-align: center !important;
     letter-spacing: 15px !important;
@@ -91,7 +91,7 @@ input::placeholder {
 
 /* Pasek wpisywania na dole */
 div[data-testid="stChatInput"] {
-    background-color: #F5ECEE !important;
+    background-color: #dfb8cc !important;
     border: 2px solid #C27F97 !important;
     border-radius: 30px !important;
 }
