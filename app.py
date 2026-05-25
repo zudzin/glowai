@@ -28,9 +28,9 @@ css_style = (
     "[data-testid='stChatMessage'] { background-color: #ffffff; border-radius: 20px; border: 1px solid #f7dede; margin-bottom: 10px; padding: 15px; }"
     "[data-testid='stChatMessage']:nth-child(even) { background-color: #fff0f1; border: 1px solid #ebc5c5; }"
     
-    # Zdjęcia po bokach
-    ".side-img { border-radius: 15px; object-fit: cover; margin-bottom: 20px; border: 1px solid #f7dede; box-shadow: 0px 4px 15px rgba(201,138,138,0.1); width: 100%; transition: transform 0.3s ease; }"
-    ".side-img:hover { transform: scale(1.03); }"
+    # Zdjęcia po bokach (Wymuszony styl dla st.image)
+    "[data-testid='stImage'] img { border-radius: 15px; object-fit: cover; border: 1px solid #f7dede; box-shadow: 0px 4px 15px rgba(201,138,138,0.1); transition: transform 0.3s ease; }"
+    "[data-testid='stImage'] img:hover { transform: scale(1.03); }"
     
     # Stopka na samym dole strony
     ".brand-footer { text-align: center; font-family: 'Cinzel', serif; color: #a38585; font-size: 16px; letter-spacing: 3px; text-transform: uppercase; margin-top: 60px; padding: 25px; border-top: 1px solid rgba(163, 133, 133, 0.15); }"
@@ -105,31 +105,31 @@ def pytaj_agentow_czat(imie, historia, nowy_prom):
 # --- UKŁAD STRONY: 3 KOLUMNY ---
 col_left, col_center, col_right = st.columns([1, 2, 1])
 
-# LISTA TWOICH NOWYCH ZDJĘĆ Z GITHUBA (Zabezpieczenie przed brakiem pliku)
-def wyswietl_zdjecie_bezpiecznie(nazwa_pliku, opis):
+def wyswietl_zdjecie_bezpiecznie(nazwa_pliku, url_zastepczy):
+    # Bezpieczne ładowanie pliku za pomocą natywnej funkcji Streamlit (st.image)
     if os.path.exists(nazwa_pliku):
-        st.markdown(f'<img class="side-img" src="./app/static/{nazwa_pliku}" alt="{opis}">', unsafe_allow_html=True)
+        st.image(nazwa_pliku, use_container_width=True)
     else:
-        st.markdown(f'<img class="side-img" src="https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?q=80&w=400" alt="{opis}">', unsafe_allow_html=True)
+        st.image(url_zastepczy, use_container_width=True)
 
-# Lewa kolumna - 3 zdjęcia podrzucone przez Ciebie
+# Lewa kolumna - 3 zdjęcia
 with col_left:
-    st.write("") # Odstęp górny
-    wyswietl_zdjecie_bezpiecznie("1fa08f5d77417f45981c55e8b887f909.jpg", "Aesthetic 1")
-    wyswietl_zdjecie_bezpiecznie("102e80d2a00f1417283bfd743d021a76.jpg", "Aesthetic 2")
-    wyswietl_zdjecie_bezpiecznie("9438d31b27d424e2feb4e744c7578aa3.jpg", "Aesthetic 3")
+    st.write("") 
+    wyswietl_zdjecie_bezpiecznie("1fa08f5d77417f45981c55e8b887f909.jpg", "https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?q=80&w=400")
+    wyswietl_zdjecie_bezpiecznie("102e80d2a00f1417283bfd743d021a76.jpg", "https://images.unsplash.com/photo-1556229174-5e42a09e45af?q=80&w=400")
+    wyswietl_zdjecie_bezpiecznie("9438d31b27d424e2feb4e744c7578aa3.jpg", "https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?q=80&w=400")
 
-# Prawa kolumna - kolejne 3 zdjęcia podrzucone przez Ciebie
+# Prawa kolumna - 3 zdjęcia
 with col_right:
     st.write("") 
-    wyswietl_zdjecie_bezpiecznie("700129929a2803b16ab124197ec8ba69.jpg", "Aesthetic 4")
-    wyswietl_zdjecie_bezpiecznie("daa4eaf344eebaaa5d8e72625ca7f976.jpg", "Aesthetic 5")
-    wyswietl_zdjecie_bezpiecznie("edf73f24d9d6a298f7d0626c20569a7c.jpg", "Aesthetic 6")
+    wyswietl_zdjecie_bezpiecznie("700129929a2803b16ab124197ec8ba69.jpg", "https://images.unsplash.com/photo-1608248597481-496100c8c836?q=80&w=400")
+    wyswietl_zdjecie_bezpiecznie("daa4eaf344eebaaa5d8e72625ca7f976.jpg", "https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?q=80&w=400")
+    wyswietl_zdjecie_bezpiecznie("edf73f24d9d6a298f7d0626c20569a7c.jpg", "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?q=80&w=400")
 
 # Środkowa kolumna — SERCE SYSTEMU (Główny interfejs Plotkary)
 with col_center:
     st.markdown('<div class="brand-logo">GlowAI</div>', unsafe_allow_html=True)
-    st.markdown('<div class="brand-tagline">XOXO, Your Ultimate Skincare Confidant</div>', unsafe_allowed_html=True)
+    st.markdown('<div class="brand-tagline">XOXO, Your Ultimate Skincare Confidant</div>', unsafe_allow_html=True)
     
     # Karta konfiguracji profilu na górze czatu
     st.markdown('<div class="profile-card">', unsafe_allow_html=True)
@@ -139,7 +139,7 @@ with col_center:
         user_name = st.text_input("Jak masz na imię?", value="Bff", key="user_name_input")
     with c_email:
         user_email = st.text_input("Twój e-mail (do transkrypcji):", placeholder="girl@messenger.com")
-    st.markdown('</div>', unsafe_allowed_html=True)
+    st.markdown('</div>', unsafe_allow_html=True)
     
     # Inicjalizacja pamięci czatu (Multi-turn chat)
     if "messages" not in st.session_state:
@@ -152,21 +152,19 @@ with col_center:
         with st.chat_message(message["role"]):
             st.markdown(message["content"])
             
-    # Reakcja na nową wiadomość użytkownika (Można pisać wielokrotnie!)
+    # Reakcja na nową wiadomość użytkownika
     if prompt := st.chat_input("Napisz sekret o swojej skórze..."):
-        # Wyświetlamy wiadomość użytkownika
         with st.chat_message("user"):
             st.markdown(prompt)
         st.session_state.messages.append({"role": "user", "content": prompt})
         
-        # Generowanie odpowiedzi AI z zachowaniem ról agentów
         with st.chat_message("assistant"):
             with st.spinner("✨ Wirtualni agenci naradzają się nad Twoim przypadkiem..."):
                 odpowiedz = pytaj_agentow_czat(user_name, st.session_state.messages[:-1], prompt)
                 st.markdown(odpowiedz)
         st.session_state.messages.append({"role": "assistant", "content": odpowiedz})
         
-    # Przycisk do wysłania pełnej transkrypcji na maila na żądanie
+    # Przycisk do wysłania pełnej transkrypcji na maila
     if len(st.session_state.messages) > 1:
         st.markdown("<br>", unsafe_allow_html=True)
         if st.button("Zakończ rozmowę i wyślij cały sekret na maila 💌"):
