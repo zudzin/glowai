@@ -185,10 +185,10 @@ with col_center:
     
     st.markdown("<div style='margin-bottom: 40px;'></div>", unsafe_allow_html=True)
 
-    # Inicjalizacja czatu
+# Inicjalizacja czatu
     if "messages" not in st.session_state:
         st.session_state.messages = [
-            {"role": "assistant", "content": "Hi gorgeous! 🤍 Ready to romanticize your skincare routine? Tell me what your skin is craving today."}
+            {"role": "assistant", "content": "Cześć piękna! 🤍 Gotowa zromantyzować swoją rutynę pielęgnacyjną? Zdradź mi, czego dzisiaj pragnie Twoja skóra."}
         ]
 
     for message in st.session_state.messages:
@@ -196,19 +196,19 @@ with col_center:
             st.markdown(message["content"])
 
     # Wprowadzanie tekstu
-    if prompt := st.chat_input("Tell me your skin secrets..."):
+    if prompt := st.chat_input("Zdradź mi sekrety swojej skóry..."):
         with st.chat_message("user"):
             st.markdown(prompt)
         st.session_state.messages.append({"role": "user", "content": prompt})
         
         with st.chat_message("assistant"):
-            with st.spinner("Analyzing your glow profile... ✨"):
+            with st.spinner("Analizuję Twój profil glow... ✨"):
                 time.sleep(1.5) 
                 mock_response = (
-                    "I see exactly what's going on! ✨ Your skin barrier needs a little extra love right now.\n\n"
-                    "**The Diagnosis:** Dehydration mixed with slight irritation. We need to focus on barrier repair.\n\n"
-                    "**The Protocol:** Drop the harsh actives. Switch to a milky cleanser, drown your skin in Ceramides (our database suggests the *Rhode Glazing Fluid*), and seal it with a rich peptide cream.\n\n"
-                    "You've got this. Keep glowing! 🧴🤍"
+                    "Wiem dokładnie, co tu się dzieje! ✨ Twoja bariera hydrolipidowa potrzebuje teraz odrobiny miłości.\n\n"
+                    "**Diagnoza:** Odwodnienie połączone z lekkim podrażnieniem. Musimy w 100% skupić się na odbudowie bariery.\n\n"
+                    "**Protokół:** Odstaw mocne składniki aktywne. Przejdź na mleczną emulsję do mycia, zalej skórę Ceramidami (nasza baza podpowiada *Rhode Glazing Fluid*) i domknij to wszystko bogatym kremem peptydowym.\n\n"
+                    "Dasz radę. Keep glowing! 🧴🤍"
                 )
                 st.markdown(mock_response)
         st.session_state.messages.append({"role": "assistant", "content": mock_response})
@@ -216,12 +216,12 @@ with col_center:
     # Przycisk mailowy
     if len(st.session_state.messages) > 1:
         st.markdown("<br>", unsafe_allow_html=True)
-        if st.button("SEND ROUTINE TO MY EMAIL"):
+        if st.button("WYŚLIJ RUTYNĘ NA MÓJ EMAIL"):
             if not user_email or "@" not in user_email:
-                st.error("Please enter a valid email above gorgeous! ✨")
+                st.error("Wpisz wyżej poprawny e-mail, piękna! ✨")
             else:
-                with st.spinner("Sending aesthetic vibes to your inbox..."):
+                with st.spinner("Wysyłam aesthetic vibes na Twoją skrzynkę..."):
                     time.sleep(1)
-                    st.success("Sent! Check your inbox. 🕊️")
+                    st.success("Wysłane! Sprawdź swoją skrzynkę. 🕊️")
 
 st.markdown('<p class="footer">New philosophy of selfcare: healthy skin first</p>', unsafe_allow_html=True)
