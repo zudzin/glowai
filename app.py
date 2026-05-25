@@ -13,13 +13,13 @@ css_style = """
 
 /* Tło strony - czysty, ciepły krem */
 .stApp {
-    background-color: #fdfbf9;
+    background-color: #fbd9e5;
 }
 
 /* Wymuszenie fontu globalnie */
 html, body, [class*='css'], p, div {
     font-family: 'Jost', sans-serif !important;
-    color: #2b2b2b !important;
+    color: #4a202a !important;
 }
 
 /* Ukrycie domyślnego, pustego marginesu na górze Streamlita */
