@@ -3,138 +3,124 @@ import os
 import time
 
 # --- USTAWIENIA STRONY ---
-st.set_page_config(page_title="GlowAI | Skincare Secrets", page_icon="🎀", layout="wide")
+st.set_page_config(page_title="GlowAI", page_icon="🎀", layout="wide")
 
-# --- EDGY & CLEAN GIRL UI (TYLKO TWOJA PALETA) ---
+# --- EDGY & CLEAN GIRL UI (BEZWZGLĘDNA PALETA KOLORÓW) ---
 css_style = """
 <style>
-/* Luksusowy font - wyłącznie Montserrat */
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;800&display=swap');
 
-/* Tło strony - najjaśniejszy odcień palety (#F5ECEE) */
-.stApp {
-    background-color: #F5ECEE;
+/* Tło całej aplikacji - jasny róż #F5ECEE */
+.stApp, .main, [data-testid="stAppViewContainer"] {
+    background-color: #F5ECEE !important;
 }
 
-/* Wymuszenie fontu Montserrat i najciemniejszego koloru tekstu dla czytelności (#38242C) */
-html, body, [class*='css'], p, div, input, textarea {
+/* Wymuszenie fontu Montserrat dla całego tekstu oraz głównego koloru #38242C */
+html, body, p, div, span, h1, h2, h3, input, textarea {
     font-family: 'Montserrat', sans-serif !important;
     color: #38242C !important;
 }
 
-/* Ukrycie domyślnego, pustego marginesu na górze Streamlita */
+/* Ukrycie marginesów górnych */
 div[data-testid="stAppViewBlockContainer"] {
     padding-top: 2rem !important;
 }
 
-/* GŁÓWNE LOGO (#6B2F4A) */
-.edgy-logo {
-    font-size: 60px;
-    text-align: center;
-    font-weight: 700;
-    letter-spacing: 10px;
-    color: #6B2F4A;
-    text-transform: uppercase;
-    margin-top: 0px;
-    margin-bottom: -10px;
+/* OGROMNE LOGO GLOW.AI (#6B2F4A) */
+.huge-logo {
+    font-size: 85px !important;
+    font-weight: 800 !important;
+    text-align: center !important;
+    letter-spacing: 15px !important;
+    color: #6B2F4A !important;
+    margin-top: 10px !important;
+    margin-bottom: -15px !important;
+    line-height: 1 !important;
 }
 
+/* Subtitle (#A24D72) */
 .subtitle {
-    text-align: center;
-    font-size: 11px;
-    letter-spacing: 4px;
-    text-transform: uppercase;
-    color: #A24D72;
-    margin-bottom: 50px;
-    font-weight: 600;
+    font-size: 13px !important;
+    text-align: center !important;
+    letter-spacing: 6px !important;
+    text-transform: uppercase !important;
+    color: #A24D72 !important;
+    margin-bottom: 60px !important;
+    font-weight: 600 !important;
 }
 
-/* ZDJĘCIA PO BOKACH - ramki w kolorze #C27F97 */
+/* Zdjęcia po bokach z ramką #C27F97 */
 [data-testid='stImage'] img {
     border-radius: 12px !important;
     object-fit: cover;
-    box-shadow: 0px 8px 25px rgba(107, 47, 74, 0.1) !important;
-    border: 1px solid #C27F97;
-    transition: all 0.5s ease;
-}
-[data-testid='stImage'] img:hover {
-    transform: translateY(-4px);
-    box-shadow: 0px 15px 35px rgba(56, 36, 44, 0.2) !important;
+    border: 2px solid #C27F97 !important;
+    box-shadow: 0px 10px 25px rgba(56, 36, 44, 0.1) !important;
 }
 
-/* POLA TEKSTOWE - tło z palety (#F5ECEE), ramki (#C27F97) */
+/* Pola tekstowe - tło #F5ECEE, ramka #C27F97 */
 div[data-baseweb="input"] > div {
     background-color: #F5ECEE !important;
-    border: 1px solid #C27F97 !important;
+    border: 2px solid #C27F97 !important;
     border-radius: 8px !important;
-    padding: 2px 5px !important;
 }
 div[data-baseweb="input"] > div:focus-within {
-    border: 1px solid #A24D72 !important;
-    box-shadow: none !important;
+    border: 2px solid #A24D72 !important;
 }
 input::placeholder {
     color: #C27F97 !important;
-    letter-spacing: 1px;
+    letter-spacing: 2px;
     font-size: 12px;
-    text-transform: uppercase;
-    font-weight: 500;
+    font-weight: 600;
 }
 
-/* WYGLĄD DYMKÓW CZATU */
+/* WYGLĄD DYMKÓW CZATU - Tło #F5ECEE, ramka #D8AAB7 */
 [data-testid="stChatMessage"] {
     background-color: #F5ECEE !important;
-    border-radius: 16px;
-    border: 1px solid #D8AAB7 !important;
-    padding: 18px 22px !important;
+    border-radius: 16px !important;
+    border: 2px solid #D8AAB7 !important;
+    padding: 15px !important;
     margin-bottom: 15px !important;
-    font-size: 14px !important;
-    line-height: 1.6 !important;
+    font-size: 15px !important;
+    box-shadow: none !important;
 }
-/* Dymek bota - piękny, brudny róż z palety (#D8AAB7) */
+/* Dymek bota - ciemniejszy róż #D8AAB7 */
 [data-testid="stChatMessage"]:nth-child(even) {
     background-color: #D8AAB7 !important;
-    border: 1px solid #C27F97 !important;
+    border: 2px solid #C27F97 !important;
 }
 
-/* PASEK CZATU NA DOLE */
+/* Pasek wpisywania na dole */
 div[data-testid="stChatInput"] {
     background-color: #F5ECEE !important;
-    border: 1px solid #C27F97 !important;
+    border: 2px solid #C27F97 !important;
     border-radius: 30px !important;
-    padding: 2px 10px !important;
 }
 
-/* PRZYCISK MAILOWY - intensywny róż (#A24D72) */
+/* PRZYCISK MAILOWY - Tło #A24D72 */
 div.stButton > button:first-child {
     background-color: #A24D72 !important;
     color: #F5ECEE !important;
     border-radius: 8px !important;
     border: none !important;
-    padding: 15px 24px !important;
-    font-size: 12px !important;
-    font-weight: 600 !important;
-    letter-spacing: 2px !important;
-    text-transform: uppercase !important;
-    width: 100%;
-    margin-top: 10px;
-    transition: all 0.3s ease;
+    padding: 15px !important;
+    font-size: 13px !important;
+    font-weight: 700 !important;
+    letter-spacing: 3px !important;
+    width: 100% !important;
+    margin-top: 20px !important;
 }
 div.stButton > button:first-child:hover {
     background-color: #6B2F4A !important;
     color: #F5ECEE !important;
-    transform: translateY(-2px);
 }
 
-/* STOPKA */
+/* Stopka */
 .footer {
     text-align: center;
-    font-size: 10px;
+    font-size: 11px;
     letter-spacing: 3px;
-    text-transform: uppercase;
     color: #C27F97;
     margin-top: 80px;
-    padding-bottom: 20px;
     border-top: 1px solid #D8AAB7;
     padding-top: 30px;
 }
@@ -142,38 +128,37 @@ div.stButton > button:first-child:hover {
 """
 st.markdown(css_style, unsafe_allow_html=True)
 
-# --- FUNKCJE POMOCNICZE WIZUALNE ---
-def safe_image(img_name, fallback_url):
+# --- FUNKCJA BEZPIECZNYCH ZDJĘĆ (BEZ PSA) ---
+def safe_image(img_name):
+    # Wyświetla zdjęcie TYLKO jeśli istnieje w plikach
     if os.path.exists(img_name):
         st.image(img_name, use_container_width=True)
-    else:
-        st.image(fallback_url, use_container_width=True)
 
 # --- UKŁAD KOLUMN ---
 col_left, col_center, col_right = st.columns([1, 2.2, 1], gap="large")
 
 with col_left:
     st.write("")
-    safe_image("1fa08f5d77417f45981c55e8b887f909.jpg", "https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?q=80&w=400")
+    safe_image("1fa08f5d77417f45981c55e8b887f909.jpg")
     st.markdown("<br>", unsafe_allow_html=True)
-    safe_image("102e80d2a00f1417283bfd743d021a76.jpg", "https://images.unsplash.com/photo-1556229174-5e42a09e45af?q=80&w=400")
+    safe_image("102e80d2a00f1417283bfd743d021a76.jpg")
     st.markdown("<br>", unsafe_allow_html=True)
-    safe_image("9438d31b27d424e2feb4e744c7578aa3.jpg", "https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?q=80&w=400")
+    safe_image("9438d31b27d424e2feb4e744c7578aa3.jpg")
 
 with col_right:
     st.write("")
-    safe_image("700129929a2803b16ab124197ec8ba69.jpg", "https://images.unsplash.com/photo-1608248597481-496100c8c836?q=80&w=400")
+    safe_image("700129929a2803b16ab124197ec8ba69.jpg")
     st.markdown("<br>", unsafe_allow_html=True)
-    safe_image("daa4eaf344eebaaa5d8e72625ca7f976.jpg", "https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?q=80&w=400")
+    safe_image("daa4eaf344eebaaa5d8e72625ca7f976.jpg")
     st.markdown("<br>", unsafe_allow_html=True)
-    safe_image("edf73f24d9d6a298f7d0626c20569a7c.jpg", "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?q=80&w=400")
+    safe_image("edf73f24d9d6a298f7d0626c20569a7c.jpg")
 
 with col_center:
-    # Logo
-    st.markdown('<p class="edgy-logo">GLOW.AI</p>', unsafe_allow_html=True)
-    st.markdown('<p class="subtitle">Your digital skincare confidant</p>', unsafe_allow_html=True)
+    # GIGANTYCZNE LOGO
+    st.markdown('<div class="huge-logo">GLOW.AI</div>', unsafe_allow_html=True)
+    st.markdown('<div class="subtitle">Your digital skincare confidant</div>', unsafe_allow_html=True)
     
-    # Ultra-minimalistyczny setup profilu
+    # Inputy profilu
     c1, c2 = st.columns(2)
     with c1:
         user_name = st.text_input("Name", placeholder="TWOJE IMIĘ", label_visibility="collapsed")
@@ -182,23 +167,25 @@ with col_center:
     
     st.markdown("<div style='margin-bottom: 40px;'></div>", unsafe_allow_html=True)
 
-    # Inicjalizacja czatu
+    # Inicjalizacja wiadomości w czacie
     if "messages" not in st.session_state:
         st.session_state.messages = [
             {"role": "assistant", "content": "Cześć piękna! 🤍 Gotowa zromantyzować swoją rutynę pielęgnacyjną? Zdradź mi, czego dzisiaj pragnie Twoja skóra."}
         ]
 
+    # Wyświetlanie czatu (z własnymi avatarami!)
     for message in st.session_state.messages:
-        with st.chat_message(message["role"]):
+        avatar_icon = "🤍" if message["role"] == "user" else "✨"
+        with st.chat_message(message["role"], avatar=avatar_icon):
             st.markdown(message["content"])
 
     # Wprowadzanie tekstu
     if prompt := st.chat_input("Zdradź mi sekrety swojej skóry..."):
-        with st.chat_message("user"):
+        with st.chat_message("user", avatar="🤍"):
             st.markdown(prompt)
         st.session_state.messages.append({"role": "user", "content": prompt})
         
-        with st.chat_message("assistant"):
+        with st.chat_message("assistant", avatar="✨"):
             with st.spinner("Analizuję Twój profil glow... ✨"):
                 time.sleep(1.5) 
                 mock_response = (
@@ -221,4 +208,4 @@ with col_center:
                     time.sleep(1)
                     st.success("Wysłane! Sprawdź swoją skrzynkę. 🕊️")
 
-st.markdown('<p class="footer">New philosophy of selfcare: healthy skin first</p>', unsafe_allow_html=True)
+st.markdown('<div class="footer">New philosophy of selfcare: healthy skin first</div>', unsafe_allow_html=True)
