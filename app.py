@@ -28,13 +28,13 @@ div[data-testid="stAppViewBlockContainer"] {
 
 /* OGROMNE LOGO GLOW.AI (#6B2F4A) */
 .huge-logo {
-    font-size: 100px !important;
+    font-size: 90px !important;
     font-weight: 800 !important;
     text-align: center !important;
     letter-spacing: 15px !important;
     color: #6B2F4A !important;
     margin-top: 10px !important;
-    margin-bottom: -15px !important;
+    margin-bottom: -20px !important;
     line-height: 1 !important;
 }
 
