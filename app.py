@@ -11,15 +11,15 @@ css_style = """
 /* Luksusowe fonty */
 @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Jost:wght@300;400;500&display=swap');
 
-/* Tło strony - czysty, ciepły krem */
+/* Tło strony - jasny, chłodny beż (#e3dfdc) */
 .stApp {
-    background-color: #fbd9e5;
+    background-color: #e3dfdc;
 }
 
-/* Wymuszenie fontu globalnie */
+/* Wymuszenie fontu i głównego koloru tekstu - ciemny taupe (#5e4d41) */
 html, body, [class*='css'], p, div {
     font-family: 'Jost', sans-serif !important;
-    color: #4a202a !important;
+    color: #5e4d41 !important;
 }
 
 /* Ukrycie domyślnego, pustego marginesu na górze Streamlita */
@@ -27,14 +27,14 @@ div[data-testid="stAppViewBlockContainer"] {
     padding-top: 2rem !important;
 }
 
-/* GŁÓWNE LOGO */
+/* GŁÓWNE LOGO (#615147) */
 .edgy-logo {
     font-family: 'Cinzel', serif;
     font-size: 65px;
     text-align: center;
     font-weight: 700;
     letter-spacing: 12px;
-    color: #1a1a1a;
+    color: #615147;
     text-transform: uppercase;
     margin-top: 0px;
     margin-bottom: -10px;
@@ -46,7 +46,7 @@ div[data-testid="stAppViewBlockContainer"] {
     font-size: 11px;
     letter-spacing: 5px;
     text-transform: uppercase;
-    color: #a39191;
+    color: #988d84;
     margin-bottom: 50px;
 }
 
@@ -55,7 +55,7 @@ div[data-testid="stAppViewBlockContainer"] {
     border-radius: 12px !important;
     object-fit: cover;
     box-shadow: 0px 8px 25px rgba(0, 0, 0, 0.04) !important;
-    border: 1px solid #f2ecec;
+    border: 1px solid #dfd4cb;
     transition: all 0.5s ease;
     filter: contrast(105%) brightness(102%) saturate(90%);
 }
@@ -68,16 +68,16 @@ div[data-testid="stAppViewBlockContainer"] {
 /* POLA TEKSTOWE - czysty minimalizm */
 div[data-baseweb="input"] > div {
     background-color: #ffffff !important;
-    border: 1px solid #e8dcdc !important;
+    border: 1px solid #dfd4cb !important;
     border-radius: 6px !important;
     padding: 2px 5px !important;
 }
 div[data-baseweb="input"] > div:focus-within {
-    border: 1px solid #c98a8a !important;
+    border: 1px solid #988d84 !important;
     box-shadow: none !important;
 }
 input::placeholder {
-    color: #b5a6a6 !important;
+    color: #988d84 !important;
     letter-spacing: 1px;
     font-size: 13px;
     text-transform: uppercase;
@@ -87,22 +87,23 @@ input::placeholder {
 [data-testid="stChatMessage"] {
     background-color: #ffffff !important;
     border-radius: 16px;
-    border: 1px solid #f2ecec !important;
+    border: 1px solid #dfd4cb !important;
     padding: 18px 22px !important;
     box-shadow: 0px 4px 15px rgba(0,0,0,0.01) !important;
     margin-bottom: 15px !important;
     font-size: 15px !important;
     line-height: 1.6 !important;
 }
+/* Dymek bota - ciemniejszy beż z palety (#dfd4cb) */
 [data-testid="stChatMessage"]:nth-child(even) {
-    background-color: #faf5f5 !important;
-    border: 1px solid #f5e6e6 !important;
+    background-color: #dfd4cb !important;
+    border: 1px solid #dfd4cb !important;
 }
 
 /* PASEK CZATU NA DOLE */
 div[data-testid="stChatInput"] {
     background-color: #ffffff !important;
-    border: 1px solid #e8dcdc !important;
+    border: 1px solid #dfd4cb !important;
     border-radius: 30px !important;
     padding: 2px 10px !important;
     box-shadow: 0px -5px 20px rgba(0, 0, 0, 0.02) !important;
@@ -110,7 +111,7 @@ div[data-testid="stChatInput"] {
 
 /* PRZYCISK MAILOWY - Haute Couture */
 div.stButton > button:first-child {
-    background-color: #1a1a1a !important;
+    background-color: #615147 !important;
     color: #ffffff !important;
     border-radius: 6px !important;
     border: none !important;
@@ -125,7 +126,7 @@ div.stButton > button:first-child {
     transition: all 0.3s ease;
 }
 div.stButton > button:first-child:hover {
-    background-color: #c98a8a !important;
+    background-color: #988d84 !important;
     color: #ffffff !important;
 }
 
@@ -135,10 +136,10 @@ div.stButton > button:first-child:hover {
     font-size: 10px;
     letter-spacing: 3px;
     text-transform: uppercase;
-    color: #b5a6a6;
+    color: #988d84;
     margin-top: 80px;
     padding-bottom: 20px;
-    border-top: 1px solid #f2ecec;
+    border-top: 1px solid #dfd4cb;
     padding-top: 30px;
 }
 </style>
