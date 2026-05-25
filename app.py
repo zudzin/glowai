@@ -5,7 +5,7 @@ import time
 # --- USTAWIENIA STRONY ---
 st.set_page_config(page_title="GlowAI | Skincare Secrets", page_icon="🎀", layout="wide")
 
-# --- EDGY & CLEAN GIRL UI (ZAAWANSOWANY CSS) ---
+# --- EDGY & CLEAN GIRL UI (TYLKO TWOJA PALETA) ---
 css_style = """
 <style>
 /* Luksusowy font - wyłącznie Montserrat */
@@ -17,7 +17,7 @@ css_style = """
 }
 
 /* Wymuszenie fontu Montserrat i najciemniejszego koloru tekstu dla czytelności (#38242C) */
-html, body, [class*='css'], p, div {
+html, body, [class*='css'], p, div, input, textarea {
     font-family: 'Montserrat', sans-serif !important;
     color: #38242C !important;
 }
@@ -27,14 +27,13 @@ div[data-testid="stAppViewBlockContainer"] {
     padding-top: 2rem !important;
 }
 
-/* GŁÓWNE LOGO (#A24D72) */
+/* GŁÓWNE LOGO (#6B2F4A) */
 .edgy-logo {
-    font-family: 'Montserrat', sans-serif;
     font-size: 60px;
     text-align: center;
     font-weight: 700;
     letter-spacing: 10px;
-    color: #A24D72;
+    color: #6B2F4A;
     text-transform: uppercase;
     margin-top: 0px;
     margin-bottom: -10px;
@@ -42,32 +41,31 @@ div[data-testid="stAppViewBlockContainer"] {
 
 .subtitle {
     text-align: center;
-    font-family: 'Montserrat', sans-serif;
     font-size: 11px;
     letter-spacing: 4px;
     text-transform: uppercase;
-    color: #C27F97;
+    color: #A24D72;
     margin-bottom: 50px;
     font-weight: 600;
 }
 
-/* ZDJĘCIA PO BOKACH - ramki w kolorze #D8AAB7 */
+/* ZDJĘCIA PO BOKACH - ramki w kolorze #C27F97 */
 [data-testid='stImage'] img {
     border-radius: 12px !important;
     object-fit: cover;
-    box-shadow: 0px 8px 25px rgba(107, 47, 74, 0.1) !important; /* Poświata w kolorze #6B2F4A */
-    border: 1px solid #D8AAB7;
+    box-shadow: 0px 8px 25px rgba(107, 47, 74, 0.1) !important;
+    border: 1px solid #C27F97;
     transition: all 0.5s ease;
 }
 [data-testid='stImage'] img:hover {
     transform: translateY(-4px);
-    box-shadow: 0px 15px 35px rgba(107, 47, 74, 0.2) !important;
+    box-shadow: 0px 15px 35px rgba(56, 36, 44, 0.2) !important;
 }
 
-/* POLA TEKSTOWE */
+/* POLA TEKSTOWE - tło z palety (#F5ECEE), ramki (#C27F97) */
 div[data-baseweb="input"] > div {
-    background-color: #FFFFFF !important;
-    border: 1px solid #D8AAB7 !important;
+    background-color: #F5ECEE !important;
+    border: 1px solid #C27F97 !important;
     border-radius: 8px !important;
     padding: 2px 5px !important;
 }
@@ -85,11 +83,10 @@ input::placeholder {
 
 /* WYGLĄD DYMKÓW CZATU */
 [data-testid="stChatMessage"] {
-    background-color: #FFFFFF !important;
+    background-color: #F5ECEE !important;
     border-radius: 16px;
     border: 1px solid #D8AAB7 !important;
     padding: 18px 22px !important;
-    box-shadow: 0px 4px 15px rgba(107, 47, 74, 0.05) !important;
     margin-bottom: 15px !important;
     font-size: 14px !important;
     line-height: 1.6 !important;
@@ -102,17 +99,16 @@ input::placeholder {
 
 /* PASEK CZATU NA DOLE */
 div[data-testid="stChatInput"] {
-    background-color: #FFFFFF !important;
-    border: 1px solid #D8AAB7 !important;
+    background-color: #F5ECEE !important;
+    border: 1px solid #C27F97 !important;
     border-radius: 30px !important;
     padding: 2px 10px !important;
-    box-shadow: 0px -5px 20px rgba(107, 47, 74, 0.08) !important;
 }
 
 /* PRZYCISK MAILOWY - intensywny róż (#A24D72) */
 div.stButton > button:first-child {
     background-color: #A24D72 !important;
-    color: #FFFFFF !important;
+    color: #F5ECEE !important;
     border-radius: 8px !important;
     border: none !important;
     padding: 15px 24px !important;
@@ -125,7 +121,7 @@ div.stButton > button:first-child {
     transition: all 0.3s ease;
 }
 div.stButton > button:first-child:hover {
-    background-color: #6B2F4A !important; /* Ciemniejszy róż na hover */
+    background-color: #6B2F4A !important;
     color: #F5ECEE !important;
     transform: translateY(-2px);
 }
@@ -177,7 +173,7 @@ with col_center:
     st.markdown('<p class="edgy-logo">GLOW.AI</p>', unsafe_allow_html=True)
     st.markdown('<p class="subtitle">Your digital skincare confidant</p>', unsafe_allow_html=True)
     
-    # Ultra-minimalistyczny setup profilu (ukryte etykiety)
+    # Ultra-minimalistyczny setup profilu
     c1, c2 = st.columns(2)
     with c1:
         user_name = st.text_input("Name", placeholder="TWOJE IMIĘ", label_visibility="collapsed")
