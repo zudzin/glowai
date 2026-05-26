@@ -37,7 +37,7 @@ div[data-testid="stAppViewBlockContainer"] {
     letter-spacing: 15px !important;
     color: #6B2F4A !important;
     margin-top: 0px !important;
-    margin-bottom: 10px !important;
+    margin-bottom: 15px !important;
     line-height: 1 !important;
 }
 .subtitle {
@@ -88,16 +88,46 @@ input::placeholder {
     background-color: #D8AAB7 !important;
     border: 2px solid #C27F97 !important;
 }
+
+/* --- ULEPSZONY PASEK WPISYWANIA NA DOLE --- */
 div[data-testid="stChatInput"] {
     background-color: #F5ECEE !important;
     border: 2px solid #C27F97 !important;
     border-radius: 30px !important;
+    padding: 4px 10px !important;
+    box-shadow: 0px 4px 15px rgba(107, 47, 74, 0.1) !important;
+    transition: all 0.3s ease;
+}
+/* Reakcja na kliknięcie (pisanie) */
+div[data-testid="stChatInput"]:focus-within {
+    border: 2px solid #A24D72 !important;
+    box-shadow: 0px 6px 20px rgba(107, 47, 74, 0.15) !important;
+}
+/* Tekst wpisywany w środku */
+div[data-testid="stChatInput"] textarea {
+    color: #38242C !important;
+    font-family: 'Montserrat', sans-serif !important;
+}
+/* Przycisk wysyłania (strzałka) */
+div[data-testid="stChatInput"] button {
+    background-color: #A24D72 !important;
+    border-radius: 50% !important;
+    transition: all 0.3s ease;
+}
+/* Przycisk wysyłania po najechaniu myszką */
+div[data-testid="stChatInput"] button:hover {
+    background-color: #6B2F4A !important;
+    transform: scale(1.05);
+}
+/* Kolor samej ikony strzałki */
+div[data-testid="stChatInput"] button svg {
+    fill: #F5ECEE !important;
 }
 
 /* PRZYCISK MAILOWY (#A24D72) */
 div.stButton > button:first-child {
     background-color: #A24D72 !important;
-    color: #FFFFFF !important;
+    color: #F5ECEE !important;
     border-radius: 8px !important;
     border: none !important;
     padding: 15px !important;
@@ -270,3 +300,4 @@ with col_center:
 
 # 3. STOPKA NA DOLE STRONY
 st.markdown('<div class="footer">New philosophy of selfcare: healthy skin first</div>', unsafe_allow_html=True)
+                
