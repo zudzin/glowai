@@ -37,7 +37,7 @@ div[data-testid="stAppViewBlockContainer"] {
     letter-spacing: 15px !important;
     color: #6B2F4A !important;
     margin-top: 0px !important;
-    margin-bottom: -15px !important;
+    margin-bottom: 10px !important;
     line-height: 1 !important;
 }
 .subtitle {
@@ -97,7 +97,7 @@ div[data-testid="stChatInput"] {
 /* PRZYCISK MAILOWY (#A24D72) */
 div.stButton > button:first-child {
     background-color: #A24D72 !important;
-    color: #F5ECEE !important;
+    color: #FFFFFF !important;
     border-radius: 8px !important;
     border: none !important;
     padding: 15px !important;
