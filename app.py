@@ -9,7 +9,7 @@ from email.mime.multipart import MIMEMultipart
 # --- USTAWIENIA STRONY ---
 st.set_page_config(page_title="GlowAI", page_icon="🎀", layout="wide")
 
-# --- BEZWZGLĘDNA PALETA KOLORÓW I CSS (BEZ HAKOWANIA CZATU!) ---
+# --- BEZWZGLĘDNA PALETA KOLORÓW I CSS ---
 css_style = """
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;800&display=swap');
@@ -19,8 +19,8 @@ css_style = """
     background-color: #F5ECEE !important;
 }
 
-/* Tekst i czcionka główna: #38242C */
-html, body, p, div, span, h1, h2, h3 {
+/* Tekst i czcionka: #38242C */
+html, body, p, div, span, h1, h2, h3, input, textarea {
     font-family: 'Montserrat', sans-serif !important;
     color: #38242C !important;
 }
@@ -37,7 +37,7 @@ div[data-testid="stAppViewBlockContainer"] {
     letter-spacing: 15px !important;
     color: #6B2F4A !important;
     margin-top: 0px !important;
-    margin-bottom: -15px !important;
+    margin-bottom: 15px !important;
     line-height: 1 !important;
 }
 .subtitle {
@@ -59,7 +59,7 @@ div[data-testid="stAppViewBlockContainer"] {
     margin-bottom: 15px !important;
 }
 
-/* POLA TEKSTOWE PROFILU I WYSZUKIWARKI */
+/* POLA TEKSTOWE PROFILU I WYSZUKIWARKI (#F5ECEE i #C27F97) */
 div[data-baseweb="input"] > div {
     background-color: #F5ECEE !important;
     border: 2px solid #C27F97 !important;
@@ -68,17 +68,14 @@ div[data-baseweb="input"] > div {
 div[data-baseweb="input"] > div:focus-within {
     border: 2px solid #A24D72 !important;
 }
-div[data-baseweb="input"] input {
-    color: #38242C !important;
-}
-div[data-baseweb="input"] input::placeholder {
+input::placeholder {
     color: #C27F97 !important;
     letter-spacing: 1px;
     font-size: 11px;
     font-weight: 600;
 }
 
-/* DYMKI CZATU */
+/* DYMKI CZATU (#F5ECEE i #D8AAB7) */
 [data-testid="stChatMessage"] {
     background-color: #F5ECEE !important;
     border-radius: 16px !important;
@@ -91,6 +88,67 @@ div[data-baseweb="input"] input::placeholder {
     background-color: #D8AAB7 !important;
     border: 2px solid #C27F97 !important;
 }
+
+/* =========================================================
+   OSTATECZNA BLOKADA CZERNI W PASKU CZATU I PRZYCISKU
+   ========================================================= */
+
+/* Główny pasek */
+div[data-testid="stChatInput"] {
+    background-color: #F5ECEE !important;
+    border: 2px solid #C27F97 !important;
+    border-radius: 30px !important;
+    padding: 4px 10px !important;
+}
+div[data-testid="stChatInput"]:focus-within {
+    border: 2px solid #A24D72 !important;
+}
+
+/* Zmuszamy Streamlita, by nie podmieniał tła w środku na czarne */
+div[data-testid="stChatInput"] > div, 
+div[data-testid="stChatInput"] * {
+    background-color: transparent !important;
+}
+
+/* Wymuszenie CIEMNEGO tekstu w trakcie pisania */
+div[data-testid="stChatInput"] textarea {
+    color: #38242C !important; 
+    -webkit-text-fill-color: #38242C !important;
+    caret-color: #A24D72 !important; 
+}
+div[data-testid="stChatInput"] textarea::placeholder {
+    color: #C27F97 !important;
+    -webkit-text-fill-color: #C27F97 !important;
+}
+
+/* MORDERCA CZARNEGO PRZYCISKU (Identyfikator docelowy Streamlita) */
+button[data-testid="stChatInputSubmitButton"],
+button[data-testid="stChatInputSubmitButton"]:enabled,
+button[data-testid="stChatInputSubmitButton"]:disabled,
+button[data-testid="stChatInputSubmitButton"]:focus,
+button[data-testid="stChatInputSubmitButton"]:active {
+    background-color: #A24D72 !important;
+    background: #A24D72 !important; 
+    border-radius: 50% !important;
+    border: none !important;
+    box-shadow: none !important;
+    opacity: 1 !important;
+}
+
+/* Efekt najechania myszką */
+button[data-testid="stChatInputSubmitButton"]:hover {
+    background-color: #6B2F4A !important;
+    background: #6B2F4A !important;
+}
+
+/* Ikona strzałki - wymuszenie jasnego koloru #F5ECEE */
+button[data-testid="stChatInputSubmitButton"] svg,
+button[data-testid="stChatInputSubmitButton"] path {
+    fill: #F5ECEE !important;
+    color: #F5ECEE !important;
+    stroke: transparent !important;
+}
+
 
 /* PRZYCISK MAILOWY (#A24D72) */
 div.stButton > button:first-child {
@@ -121,7 +179,7 @@ div.stButton > button:first-child:hover {
 .csv-name { font-weight: 600; color: #A24D72; font-size: 13px; }
 .csv-ingredients { font-size: 11px; color: #38242C; margin-top: 8px; }
 
-/* STOPKA */
+/* STOPKA (#C27F97) */
 .footer {
     text-align: center;
     font-size: 11px;
@@ -168,9 +226,11 @@ def safe_image(img_name):
 # GŁÓWNY UKŁAD STRONY
 # =====================================================================
 
+# 1. LOGO NA SAMEJ GÓRZE STRONY (Pełna szerokość)
 st.markdown('<div class="huge-logo">GLOW.AI</div>', unsafe_allow_html=True)
 st.markdown('<div class="subtitle">Your digital skincare confidant</div>', unsafe_allow_html=True)
 
+# 2. PODZIAŁ NA 3 KOLUMNY (Boki: zdjęcia, Środek: funkcje)
 col_left, col_center, col_right = st.columns([1, 2.2, 1], gap="large")
 
 with col_left:
@@ -183,7 +243,9 @@ with col_right:
     safe_image("daa4eaf344eebaaa5d8e72625ca7f976.jpg")
     safe_image("edf73f24d9d6a298f7d0626c20569a7c.jpg")
 
+# --- ŚRODKOWA KOLUMNA (CZAT, WYSZUKIWARKA, MAIL) ---
 with col_center:
+    
     # PROFIL
     c1, c2 = st.columns(2)
     with c1:
@@ -247,7 +309,7 @@ with col_center:
         except Exception:
             st.error("Brak pliku cosmetics.csv w systemie!", icon="🚨")
 
-    # PRZYCISK MAILOWY
+    # PRZYCISK MAILOWY NA SAMYM DOLE ŚRODKA
     st.markdown("<div style='border-top: 2px solid #D8AAB7; margin: 20px 0;'></div>", unsafe_allow_html=True)
     if st.button("WYŚLIJ ANALIZĘ NA MÓJ EMAIL 🕊️"):
         if not user_email or "@" not in user_email:
@@ -262,4 +324,5 @@ with col_center:
                 else:
                     st.error("Błąd serwera poczty.", icon="🚨")
 
+# 3. STOPKA NA DOLE STRONY
 st.markdown('<div class="footer">New philosophy of selfcare: healthy skin first</div>', unsafe_allow_html=True)
