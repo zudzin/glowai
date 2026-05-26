@@ -59,7 +59,7 @@ div[data-testid="stAppViewBlockContainer"] {
     margin-bottom: 15px !important;
 }
 
-/* POLA TEKSTOWE (#F5ECEE i #C27F97) */
+/* POLA TEKSTOWE PROFILU I WYSZUKIWARKI (#F5ECEE i #C27F97) */
 div[data-baseweb="input"] > div {
     background-color: #F5ECEE !important;
     border: 2px solid #C27F97 !important;
@@ -89,7 +89,7 @@ input::placeholder {
     border: 2px solid #C27F97 !important;
 }
 
-/* --- NAPRAWA CZARNEGO PRZYCISKU W PASEKU WPISYWANIA --- */
+/* --- PASEK WPISYWANIA W CZACIE (NAPRAWA NIEWIDOCZNEGO TEKSTU) --- */
 div[data-testid="stChatInput"] {
     background-color: #F5ECEE !important;
     border: 2px solid #C27F97 !important;
@@ -99,22 +99,25 @@ div[data-testid="stChatInput"] {
 div[data-testid="stChatInput"]:focus-within {
     border: 2px solid #A24D72 !important;
 }
-div[data-testid="stChatInput"] textarea {
-    color: #38242C !important;
-    font-family: 'Montserrat', sans-serif !important;
+/* Wymuszenie CIEMNEGO tekstu i widocznego kursora podczas pisania */
+div[data-testid="stChatInput"] * {
+    color: #38242C !important; 
+    caret-color: #A24D72 !important; 
 }
-
-/* Całkowite zablokowanie czarnej strzałki */
+/* Kolor napisu "Zdradź mi sekrety..." */
+div[data-testid="stChatInput"] textarea::placeholder {
+    color: #C27F97 !important;
+}
+/* Przycisk wysyłania (strzałka) na stałe różowy */
 div[data-testid="stChatInput"] button {
     background-color: #A24D72 !important;
     border-radius: 50% !important;
     border: none !important;
-    opacity: 1 !important;
 }
 div[data-testid="stChatInput"] button:hover {
-    background-color: #C27F97 !important; 
-    transform: scale(1.05);
+    background-color: #6B2F4A !important;
 }
+/* Jasna strzałka w środku przycisku */
 div[data-testid="stChatInput"] button svg,
 div[data-testid="stChatInput"] button path {
     fill: #F5ECEE !important;
@@ -134,13 +137,11 @@ div.stButton > button:first-child {
     width: 100% !important;
     margin-top: 10px !important;
 }
-/* Jaśniejszy hover, żeby nie wpadał w czerń */
 div.stButton > button:first-child:hover {
-    background-color: #C27F97 !important; 
-    color: #F5ECEE !important;
+    background-color: #6B2F4A !important;
 }
 
-/* WYSZUKIWARKA CSV */
+/* WYSZUKIWARKA CSV WYNIKI */
 .csv-result {
     background-color: #F5ECEE;
     border: 2px solid #D8AAB7;
@@ -239,7 +240,7 @@ with col_center:
         with st.chat_message(message["role"], avatar=avatar_icon):
             st.markdown(message["content"])
 
-    if prompt := st.chat_input("Napisz sekret o swojej skórze..."):
+    if prompt := st.chat_input("Zdradź mi sekrety swojej skóry..."):
         with st.chat_message("user", avatar="🤍"):
             st.markdown(prompt)
         st.session_state.messages.append({"role": "user", "content": prompt})
@@ -257,7 +258,7 @@ with col_center:
 
     # WYSZUKIWARKA KOSMETYKÓW
     st.markdown("<br><div style='border-top: 2px solid #D8AAB7; margin: 20px 0;'></div>", unsafe_allow_html=True)
-    st.markdown("<h3 style='text-align: center; color: #6B2F4A; font-size: 16px; letter-spacing: 2px;'>🔍 BAZA SKŁADNIKÓW GLOWAI</h3>", unsafe_allow_html=True)
+    st.markdown("<h3 style='text-align: center; color: #6B2F4A; font-size: 16px; letter-spacing: 2px; font-weight: 800;'>🔍 BAZA SKŁADNIKÓW GLOWAI</h3>", unsafe_allow_html=True)
     
     search_query = st.text_input("Szukaj", placeholder="Wpisz kosmetyk (np. Serum, Cream)...", label_visibility="collapsed")
     
