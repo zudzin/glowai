@@ -89,7 +89,7 @@ input::placeholder {
     border: 2px solid #C27F97 !important;
 }
 
-/* --- PASEK WPISYWANIA W CZACIE (NAPRAWA NIEWIDOCZNEGO TEKSTU) --- */
+/* --- PASEK WPISYWANIA W CZACIE (OSTATECZNE ZABICIE CZERNI I NIEWIDOCZNEGO TEKSTU) --- */
 div[data-testid="stChatInput"] {
     background-color: #F5ECEE !important;
     border: 2px solid #C27F97 !important;
@@ -99,25 +99,33 @@ div[data-testid="stChatInput"] {
 div[data-testid="stChatInput"]:focus-within {
     border: 2px solid #A24D72 !important;
 }
-/* Wymuszenie CIEMNEGO tekstu i widocznego kursora podczas pisania */
-div[data-testid="stChatInput"] * {
+
+/* 1. MOCNE WYMUSZENIE CIEMNEGO TEKSTU (-webkit blokuje domyślne błędy przeglądarki) */
+div[data-testid="stChatInput"] textarea,
+div[data-testid="stChatInput"] input {
     color: #38242C !important; 
+    -webkit-text-fill-color: #38242C !important;
     caret-color: #A24D72 !important; 
 }
-/* Kolor napisu "Zdradź mi sekrety..." */
 div[data-testid="stChatInput"] textarea::placeholder {
     color: #C27F97 !important;
+    -webkit-text-fill-color: #C27F97 !important;
 }
-/* Przycisk wysyłania (strzałka) na stałe różowy */
-div[data-testid="stChatInput"] button {
+
+/* 2. CAŁKOWITA BLOKADA CZARNEGO PRZYCISKU (nawet gdy staje się aktywny po wpisaniu tekstu) */
+div[data-testid="stChatInput"] button,
+div[data-testid="stChatInput"] button:enabled,
+div[data-testid="stChatInput"] button[disabled=""],
+div[data-testid="stChatInput"] [data-baseweb="button"] {
     background-color: #A24D72 !important;
     border-radius: 50% !important;
     border: none !important;
+    opacity: 1 !important;
 }
 div[data-testid="stChatInput"] button:hover {
     background-color: #6B2F4A !important;
 }
-/* Jasna strzałka w środku przycisku */
+/* Środek strzałki zawsze jasny */
 div[data-testid="stChatInput"] button svg,
 div[data-testid="stChatInput"] button path {
     fill: #F5ECEE !important;
