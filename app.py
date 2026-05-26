@@ -9,7 +9,7 @@ from email.mime.multipart import MIMEMultipart
 # --- USTAWIENIA STRONY ---
 st.set_page_config(page_title="GlowAI", page_icon="🎀", layout="wide")
 
-# --- BEZWZGLĘDNA PALETA KOLORÓW I CSS ---
+# --- BEZWZGLĘDNA PALETA KOLORÓW I CSS (BEZ HAKOWANIA CZATU!) ---
 css_style = """
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;800&display=swap');
@@ -19,8 +19,8 @@ css_style = """
     background-color: #F5ECEE !important;
 }
 
-/* Tekst i czcionka: #38242C */
-html, body, p, div, span, h1, h2, h3, input, textarea {
+/* Tekst i czcionka główna: #38242C */
+html, body, p, div, span, h1, h2, h3 {
     font-family: 'Montserrat', sans-serif !important;
     color: #38242C !important;
 }
@@ -37,7 +37,7 @@ div[data-testid="stAppViewBlockContainer"] {
     letter-spacing: 15px !important;
     color: #6B2F4A !important;
     margin-top: 0px !important;
-    margin-bottom: 15px !important;
+    margin-bottom: -15px !important;
     line-height: 1 !important;
 }
 .subtitle {
@@ -59,7 +59,7 @@ div[data-testid="stAppViewBlockContainer"] {
     margin-bottom: 15px !important;
 }
 
-/* POLA TEKSTOWE PROFILU I WYSZUKIWARKI (#F5ECEE i #C27F97) */
+/* POLA TEKSTOWE PROFILU I WYSZUKIWARKI */
 div[data-baseweb="input"] > div {
     background-color: #F5ECEE !important;
     border: 2px solid #C27F97 !important;
@@ -68,14 +68,17 @@ div[data-baseweb="input"] > div {
 div[data-baseweb="input"] > div:focus-within {
     border: 2px solid #A24D72 !important;
 }
-input::placeholder {
+div[data-baseweb="input"] input {
+    color: #38242C !important;
+}
+div[data-baseweb="input"] input::placeholder {
     color: #C27F97 !important;
     letter-spacing: 1px;
     font-size: 11px;
     font-weight: 600;
 }
 
-/* DYMKI CZATU (#F5ECEE i #D8AAB7) */
+/* DYMKI CZATU */
 [data-testid="stChatMessage"] {
     background-color: #F5ECEE !important;
     border-radius: 16px !important;
@@ -87,49 +90,6 @@ input::placeholder {
 [data-testid="stChatMessage"]:nth-child(even) {
     background-color: #D8AAB7 !important;
     border: 2px solid #C27F97 !important;
-}
-
-/* --- PASEK WPISYWANIA W CZACIE (OSTATECZNE ZABICIE CZERNI I NIEWIDOCZNEGO TEKSTU) --- */
-div[data-testid="stChatInput"] {
-    background-color: #F5ECEE !important;
-    border: 2px solid #C27F97 !important;
-    border-radius: 30px !important;
-    padding: 4px 10px !important;
-}
-div[data-testid="stChatInput"]:focus-within {
-    border: 2px solid #A24D72 !important;
-}
-
-/* 1. MOCNE WYMUSZENIE CIEMNEGO TEKSTU (-webkit blokuje domyślne błędy przeglądarki) */
-div[data-testid="stChatInput"] textarea,
-div[data-testid="stChatInput"] input {
-    color: #38242C !important; 
-    -webkit-text-fill-color: #38242C !important;
-    caret-color: #A24D72 !important; 
-}
-div[data-testid="stChatInput"] textarea::placeholder {
-    color: #C27F97 !important;
-    -webkit-text-fill-color: #C27F97 !important;
-}
-
-/* 2. CAŁKOWITA BLOKADA CZARNEGO PRZYCISKU (nawet gdy staje się aktywny po wpisaniu tekstu) */
-div[data-testid="stChatInput"] button,
-div[data-testid="stChatInput"] button:enabled,
-div[data-testid="stChatInput"] button[disabled=""],
-div[data-testid="stChatInput"] [data-baseweb="button"] {
-    background-color: #A24D72 !important;
-    border-radius: 50% !important;
-    border: none !important;
-    opacity: 1 !important;
-}
-div[data-testid="stChatInput"] button:hover {
-    background-color: #6B2F4A !important;
-}
-/* Środek strzałki zawsze jasny */
-div[data-testid="stChatInput"] button svg,
-div[data-testid="stChatInput"] button path {
-    fill: #F5ECEE !important;
-    stroke: transparent !important;
 }
 
 /* PRZYCISK MAILOWY (#A24D72) */
@@ -161,7 +121,7 @@ div.stButton > button:first-child:hover {
 .csv-name { font-weight: 600; color: #A24D72; font-size: 13px; }
 .csv-ingredients { font-size: 11px; color: #38242C; margin-top: 8px; }
 
-/* STOPKA (#C27F97) */
+/* STOPKA */
 .footer {
     text-align: center;
     font-size: 11px;
@@ -170,39 +130,6 @@ div.stButton > button:first-child:hover {
     margin-top: 60px;
     border-top: 1px solid #D8AAB7;
     padding-top: 20px;
-}
-/* USUNIĘCIE CIEMNEGO TŁA PRZYCISKU CHAT INPUT */
-div[data-testid="stChatInput"] button {
-    background: #A24D72 !important;
-    background-color: #A24D72 !important;
-    box-shadow: none !important;
-    border: none !important;
-/* FINAL FIX CHAT BUTTON */
-div[data-testid="stChatInput"] [data-baseweb="button"] {
-    background: #A24D72 !important;
-    background-color: #A24D72 !important;
-    border-radius: 999px !important;
-    border: none !important;
-    box-shadow: none !important;
-}
-
-/* wszystkie stany */
-div[data-testid="stChatInput"] [data-baseweb="button"]:hover,
-div[data-testid="stChatInput"] [data-baseweb="button"]:focus,
-div[data-testid="stChatInput"] [data-baseweb="button"]:active,
-div[data-testid="stChatInput"] [data-baseweb="button"][aria-disabled="false"] {
-    background: #A24D72 !important;
-    background-color: #A24D72 !important;
-    border: none !important;
-    box-shadow: none !important;
-    outline: none !important;
-}
-
-/* ikonka strzałki */
-div[data-testid="stChatInput"] [data-baseweb="button"] svg,
-div[data-testid="stChatInput"] [data-baseweb="button"] path {
-    fill: #F5ECEE !important;
-    stroke: none !important;
 }
 </style>
 """
@@ -241,11 +168,9 @@ def safe_image(img_name):
 # GŁÓWNY UKŁAD STRONY
 # =====================================================================
 
-# 1. LOGO NA SAMEJ GÓRZE STRONY (Pełna szerokość)
 st.markdown('<div class="huge-logo">GLOW.AI</div>', unsafe_allow_html=True)
 st.markdown('<div class="subtitle">Your digital skincare confidant</div>', unsafe_allow_html=True)
 
-# 2. PODZIAŁ NA 3 KOLUMNY (Boki: zdjęcia, Środek: funkcje)
 col_left, col_center, col_right = st.columns([1, 2.2, 1], gap="large")
 
 with col_left:
@@ -258,9 +183,7 @@ with col_right:
     safe_image("daa4eaf344eebaaa5d8e72625ca7f976.jpg")
     safe_image("edf73f24d9d6a298f7d0626c20569a7c.jpg")
 
-# --- ŚRODKOWA KOLUMNA (CZAT, WYSZUKIWARKA, MAIL) ---
 with col_center:
-    
     # PROFIL
     c1, c2 = st.columns(2)
     with c1:
@@ -324,7 +247,7 @@ with col_center:
         except Exception:
             st.error("Brak pliku cosmetics.csv w systemie!", icon="🚨")
 
-    # PRZYCISK MAILOWY NA SAMYM DOLE ŚRODKA
+    # PRZYCISK MAILOWY
     st.markdown("<div style='border-top: 2px solid #D8AAB7; margin: 20px 0;'></div>", unsafe_allow_html=True)
     if st.button("WYŚLIJ ANALIZĘ NA MÓJ EMAIL 🕊️"):
         if not user_email or "@" not in user_email:
@@ -339,5 +262,4 @@ with col_center:
                 else:
                     st.error("Błąd serwera poczty.", icon="🚨")
 
-# 3. STOPKA NA DOLE STRONY
 st.markdown('<div class="footer">New philosophy of selfcare: healthy skin first</div>', unsafe_allow_html=True)
