@@ -171,6 +171,29 @@ div.stButton > button:first-child:hover {
     border-top: 1px solid #D8AAB7;
     padding-top: 20px;
 }
+/* USUNIĘCIE CIEMNEGO TŁA PRZYCISKU CHAT INPUT */
+div[data-testid="stChatInput"] button {
+    background: #A24D72 !important;
+    background-color: #A24D72 !important;
+    box-shadow: none !important;
+    border: none !important;
+}
+
+div[data-testid="stChatInput"] button:hover,
+div[data-testid="stChatInput"] button:focus,
+div[data-testid="stChatInput"] button:active,
+div[data-testid="stChatInput"] button:enabled {
+    background: #A24D72 !important;
+    background-color: #A24D72 !important;
+    box-shadow: none !important;
+    border: none !important;
+    outline: none !important;
+}
+
+/* Strzałka */
+div[data-testid="stChatInput"] button svg {
+    fill: #F5ECEE !important;
+}
 </style>
 """
 st.markdown(css_style, unsafe_allow_html=True)
